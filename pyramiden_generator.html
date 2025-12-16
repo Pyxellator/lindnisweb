@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ablauf-Pyramiden-Generator | Lindnis</title>
+    <link rel="stylesheet" href="style.css"> <style>
+        /* CSS Variabeln (Standard Lindnis-Farben) - nur zur Sicherheit */
+        :root {
+            --primary-yellow: #f9ee13;
+            --primary-blue: #009ee3;
+            --primary-magenta: #e6007e;
+            --dark-bg: #333;
+        }
+
+        /* --- Grundstyling (Dunkel wie die Spielereien-Seite) --- */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark-bg); 
+            color: white;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: var(--primary-yellow);
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--primary-magenta);
+            padding-bottom: 10px;
+        }
+
+        /* --- Navigation und Zurück-Button --- */
+        .header-controls {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            justify-content: flex-start;
+            margin-bottom: 20px;
+        }
+        
+        .btn-back {
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .btn-back:hover {
+            background-color: #007bff;
+        }
+
+        /* --- Eingabebereich --- */
+        .controls {
+            background: #444; /* Dunkler als Body, aber heller als Haupt-BG */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            width: 100%;
+            max-width: 600px;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: var(--primary-yellow);
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #777;
+            border-radius: 4px;
+            font-size: 1rem;
+            box-sizing: border-box; 
+            background-color: #555;
+            color: white;
+        }
+
+        /* --- Container für Bild + Text --- */
+        .pyramid-wrapper {
+            position: relative;
+            display: inline-block;
+            max-width: 100%;
+            border: 5px solid var(--primary-yellow); /* Lindnis Rahmen */
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(249, 238, 19, 0.5);
+        }
+
+        .pyramid-wrapper img {
+            display: block;
+            max-width: 600px;
+            height: auto;
+        }
+
+        /* --- Text Overlay Styles (Lindnis-Schrift) --- */
+        .text-overlay {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            width: 60%; 
+            text-align: center;
+            font-weight: 800; /* Extra dick für Lindnis */
+            font-size: 1.25rem;
+            color: var(--primary-blue); /* Textfarbe Blau */
+            text-shadow: 1px 1px 0px var(--primary-yellow); /* Gelber Schatten */
+            pointer-events: none;
+            word-wrap: break-word;
+            line-height: 1.1;
+        }
+
+        /* --- Positionen der 4 Phasen (Angepasst für das Bild) --- */
+        #text-phase-1 { top: 20%; font-size: 1rem; width: 20%; } 
+        #text-phase-2 { top: 42%; width: 35%; }
+        #text-phase-3 { top: 62%; width: 50%; }
+        #text-phase-4 { top: 84%; width: 70%; }
+        
+        /* Druck-Button */
+        .btn-print {
+            background-color: var(--primary-magenta);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 20px;
+            width: 100%;
+            font-weight: bold;
+        }
+        
+        .btn-print:hover { background-color: #c4006b; }
+
+
+        /* Druck-Optimierung: Eingabefelder im Druck ausblenden */
+        @media print {
+            .controls, .header-controls {
+                display: none;
+            }
+            body {
+                background: white;
+                padding: 0;
+            }
+            .pyramid-wrapper {
+                border: none;
+                box-shadow: none;
+                margin: 0;
+                padding: 0;
+            }
+            .text-overlay {
+                color: black !important;
+                text-shadow: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-controls">
+        <a href="spielereien.html" class="btn-back">← Zurück zu Spielereien</a>
+    </div>
+
+    <div class="controls">
+        <h1>Lindnis Ablauf-Pyramide</h1>
+        <p>Geben Sie die 4 Stufen Ihres epischen Lindnis-Plans ein. Phase IV ist die breite Basis.</p>
+        
+        <div class="input-group">
+            <label for="in-1">Phase I (Spitze)</label>
+            <input type="text" id="in-1" placeholder="z.B. Digital First" oninput="updateText(1)">
+        </div>
+
+        <div class="input-group">
+            <label for="in-2">Phase II</label>
+            <input type="text" id="in-2" placeholder="z.B. Machbarkeit Ignorieren" oninput="updateText(2)">
+        </div>
+
+        <div class="input-group">
+            <label for="in-3">Phase III</label>
+            <input type="text" id="in-3" placeholder="z.B. Umsetzung (irgendwann)" oninput="updateText(3)">
+        </div>
+
+        <div class="input-group">
+            <label for="in-4">Phase IV (Basis)</label>
+            <input type="text" id="in-4" placeholder="z.B. Erfolg (wahrscheinlich)" oninput="updateText(4)">
+        </div>
+
+        <button class="btn-print" onclick="window.print()">🖨️ Pyramide drucken / Als PDF speichern</button>
+    </div>
+
+    <div class="pyramid-wrapper">
+        <img src="ablaufpyramide.jpeg" alt="Ablaufpyramide Leer">
+
+        <div id="text-phase-1" class="text-overlay">Phase 1</div>
+        <div id="text-phase-2" class="text-overlay">Phase 2</div>
+        <div id="text-phase-3" class="text-overlay">Phase 3</div>
+        <div id="text-phase-4" class="text-overlay">Phase 4</div>
+    </div>
+
+    <script>
+        // Funktion zum Live-Aktualisieren des Textes
+        function updateText(phaseId) {
+            const inputVal = document.getElementById('in-' + phaseId).value.toUpperCase(); // Text in Großbuchstaben
+            document.getElementById('text-phase-' + phaseId).textContent = inputVal;
+        }
+
+        // Setzt beim Laden Standardwerte in die Felder (und ruft updateText auf)
+        document.addEventListener('DOMContentLoaded', () => {
+             // Setzt die Platzhaltertexte auch als Startwerte in die Input-Felder
+            document.getElementById('in-1').value = document.getElementById('text-phase-1').textContent;
+            document.getElementById('in-2').value = document.getElementById('text-phase-2').textContent;
+            document.getElementById('in-3').value = document.getElementById('text-phase-3').textContent;
+            document.getElementById('in-4').value = document.getElementById('text-phase-4').textContent;
+
+            // Stellt sicher, dass die Texte beim Start in Großbuchstaben sind
+            updateText(1);
+            updateText(2);
+            updateText(3);
+            updateText(4);
+        });
+    </script>
+
+</body>
+</html>

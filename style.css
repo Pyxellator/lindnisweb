@@ -1,0 +1,310 @@
+/* --- Variablen & Grundeinstellungen --- */
+:root {
+    --primary-yellow: #F9EE13;
+    --dark-bg: #121212;
+    --text-dark: #222;
+    --text-light: #f4f4f4;
+    --font-stack: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-stack);
+    line-height: 1.6;
+    color: var(--text-dark);
+    scroll-behavior: smooth;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+
+/* --- Navigation --- */
+.navbar {
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    height: 70px;
+    display: flex;
+    align-items: center;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+/* Logo Bild-Anpassungen */
+.logo {
+    font-size: 0; 
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    max-height: 50px; 
+    width: auto;
+    border-bottom: none; /* Gelben Strich entfernt */
+    padding-bottom: 0; 
+}
+/* Ende Logo-Anpassungen */
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #bfa800;
+}
+
+/* Warenkorb Button in Navigation */
+.cart-button {
+    background: var(--primary-yellow);
+    color: #000;
+    border: none;
+    padding: 8px 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 15px;
+    transition: background-color 0.3s;
+    text-decoration: none;
+}
+
+.cart-button:hover {
+    background: #e0d010;
+}
+
+
+/* --- Hero Section --- */
+.hero {
+    height: 100vh;
+    background: linear-gradient(135deg, #222 60%, #333 100%);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: 70px;
+}
+
+.hero h1 {
+    font-size: 4rem;
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+.highlight {
+    color: var(--primary-yellow);
+}
+
+.hero p {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto 40px;
+    color: #ccc;
+}
+
+/* --- Buttons --- */
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: transform 0.2s;
+    cursor: pointer;
+    border: none;
+    font-size: 1rem;
+}
+
+.btn:hover { transform: translateY(-3px); }
+
+.btn-primary {
+    background-color: var(--primary-yellow);
+    color: #000;
+}
+
+.btn-secondary {
+    background-color: transparent;
+    border: 2px solid var(--primary-yellow);
+    color: var(--primary-yellow);
+    margin-left: 10px;
+}
+
+.btn-secondary:hover {
+    background-color: var(--primary-yellow);
+    color: #000;
+}
+
+/* --- Sections & Cards --- */
+.section {
+    padding: 80px 0;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border-left: 5px solid var(--primary-yellow);
+    transition: 0.3s;
+}
+
+.card:hover {
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.bg-dark {
+    background-color: var(--dark-bg);
+}
+
+.text-yellow { color: var(--primary-yellow); }
+.text-white { color: #fff; margin-bottom: 30px; }
+
+/* --- Formular --- */
+.join-form {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.join-form input {
+    padding: 12px;
+    border-radius: 5px;
+    border: none;
+    width: 300px;
+    font-size: 1rem;
+}
+
+.success-message {
+    margin-top: 20px;
+    color: var(--primary-yellow);
+    font-weight: bold;
+    min-height: 24px;
+}
+
+/* --- Footer --- */
+footer {
+    background: #000;
+    color: #777;
+    text-align: center;
+    padding: 20px;
+}
+
+/* --- Mobile / Hamburger --- */
+.hamburger {
+    display: none;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .hero h1 { font-size: 2.5rem; }
+    
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        right: 0;
+        background: #fff;
+        width: 100%;
+        text-align: center;
+        padding: 20px 0;
+        box-shadow: 0 5px 5px rgba(0,0,0,0.1);
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .hamburger span {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background: #000;
+        margin: 5px 0;
+    }
+
+    .join-form input { width: 100%; }
+}
+/* --- Zusätzliche Styles für den Programm-Button --- */
+
+.text-center {
+    text-align: center;
+}
+
+.btn-lg {
+    padding: 15px 40px;
+    font-size: 1.1rem;
+}
+/* --- Zusätzliche Styles für Social Media im Footer (Kontakt-Links) --- */
+.contact-links {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    /* Im dunklen Footer verwenden wir einen helleren Trenner */
+    border-bottom: 1px solid #333; 
+}
+.contact-links a {
+    color: var(--primary-yellow);
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: bold;
+    font-size: 1rem;
+    display: inline-block;
+}
+.contact-links a:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+/* Styles für den Programm-Button */
+.text-center {
+    text-align: center;
+}
+
+.btn-lg {
+    padding: 15px 40px;
+    font-size: 1.1rem;
+}

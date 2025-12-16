@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop | Partei Lindnis Merch</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .shop-header {
+            padding-top: 100px; 
+            padding-bottom: 20px;
+            text-align: center;
+            background-color: var(--light-bg, #f4f4f4);
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            padding: 40px 0;
+        }
+
+        .product-card {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        .product-image {
+            height: 200px;
+            background-color: var(--primary-yellow); 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            color: #000;
+            font-weight: bold;
+            /* Wichtig: Nutzt die gleiche Variable wie in style.css */
+            border-bottom: 2px solid var(--dark-bg);
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-info h3 {
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+            color: var(--text-dark);
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            color: var(--primary-yellow);
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .btn-buy {
+            /* Stil wird aus style.css übernommen, aber hier nochmal als Link-Stil */
+            display: inline-block;
+            background-color: var(--dark-bg);
+            color: #fff;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            text-decoration: none;
+        }
+
+        .btn-buy:hover {
+            background-color: var(--primary-yellow);
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <img src="lindnis_normal.png" alt="Logo der Partei Lindnis">
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="index.html#home">Start</a></li>
+                <li><a href="index.html#programm">Programm</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="spielereien.html">Spielereien</a></li>
+                <li><a href="index.html#mitglied">Mitglied werden</a></li>
+            </ul>
+            
+            <a href="warenkorb.html" class="cart-button">
+                🛒 (<span id="cartCount">0</span>)
+            </a>
+            
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="shop-header">
+        <div class="container">
+            <h1>Der Lindnis Merch-Shop</h1>
+            <p>Unterstütze uns mit Style! Jeder Kauf bringt uns einen Schritt näher an die digitale Revolution.</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container product-grid">
+            
+            <div class="product-card">
+                <div class="product-image">Lindnis Sticker Pack</div>
+                <div class="product-info">
+                    <h3>Das Macher-Sticker-Set</h3>
+                    <p>5x Hochglanz-Sticker. Für Laptop, Kühlschrank oder Limousine.</p>
+                    <div class="product-price">9,99 €</div>
+                    <a href="#" class="btn-buy" data-product-name="Sticker-Set" data-product-price="9.99">Zum Warenkorb</a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">T-Shirt "Bedenken Second"</div>
+                <div class="product-info">
+                    <h3>T-Shirt Gelb/Schwarz</h3>
+                    <p>100% Baumwolle, mit dem Motto "Bedenken Second". Verfügbar in S-XXL.</p>
+                    <div class="product-price">29,50 €</div>
+                    <a href="#" class="btn-buy" data-product-name="T-Shirt Gelb/Schwarz" data-product-price="29.50">Zum Warenkorb</a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">Die Gelbe Denk-Tasse</div>
+                <div class="product-info">
+                    <h3>Kaffeetasse Lindnis</h3>
+                    <p>Für den Morgen-Kaffee, der so hell wie unsere Zukunft ist. Spülmaschinenfest.</p>
+                    <div class="product-price">14,95 €</div>
+                    <a href="#" class="btn-buy" data-product-name="Kaffeetasse Lindnis" data-product-price="14.95">Zum Warenkorb</a>
+                </div>
+            </div>
+
+             <div class="product-card">
+                <div class="product-image">Der Lindnis Schal</div>
+                <div class="product-info">
+                    <h3>Premium Schal</h3>
+                    <p>100% Acryl. Hält warm, während wir die Digitalisierung vorantreiben.</p>
+                    <div class="product-price">39,99 €</div>
+                    <a href="#" class="btn-buy" data-product-name="Premium Schal" data-product-price="39.99">Zum Warenkorb</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Partei Lindnis. Alle Rechte vorbehalten. | <a href="index.html">Zurück zur Hauptseite</a></p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

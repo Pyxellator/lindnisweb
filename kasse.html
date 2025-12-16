@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zur Kasse | Lindnis Shop</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .checkout-page-content {
+            padding: 100px 0 50px;
+            min-height: 80vh;
+        }
+
+        .checkout-page-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--primary-yellow);
+            padding-bottom: 10px;
+        }
+        
+        .checkout-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr; /* Formular links, Zusammenfassung rechts */
+            gap: 40px;
+        }
+
+        .summary-box {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            height: fit-content;
+        }
+
+        .summary-box h3 {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .summary-box .summary-total {
+            font-size: 1.4rem;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 2px solid var(--primary-yellow);
+        }
+
+        .checkout-form label {
+            display: block;
+            margin-top: 15px;
+            font-weight: 600;
+        }
+
+        .checkout-form input[type="text"], 
+        .checkout-form input[type="email"],
+        .checkout-form select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        
+        /* Layout für Adressfelder */
+        .address-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .btn-confirm {
+            margin-top: 30px;
+            width: 100%;
+            padding: 15px;
+        }
+
+        @media (max-width: 900px) {
+            .checkout-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <img src="lindnis_normal.png" alt="Logo der Partei Lindnis">
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="index.html#home">Start</a></li> 
+                <li><a href="index.html#programm">Programm</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="index.html#mitglied">Mitglied werden</a></li>
+            </ul>
+            
+            <a href="warenkorb.html" class="cart-button">
+                🛒 (<span id="cartCount">0</span>)
+            </a>
+            
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="checkout-page-content">
+        <div class="container">
+            <h1>Zur Kasse</h1>
+            
+            <div class="checkout-grid">
+                <div>
+                    <h2>1. Lieferinformationen</h2>
+                    <form class="checkout-form" id="checkoutForm">
+                        <label for="email">E-Mail</label>
+                        <input type="email" id="email" required>
+                        
+                        <div class="address-group">
+                            <div>
+                                <label for="firstName">Vorname</label>
+                                <input type="text" id="firstName" required>
+                            </div>
+                            <div>
+                                <label for="lastName">Nachname</label>
+                                <input type="text" id="lastName" required>
+                            </div>
+                        </div>
+
+                        <label for="street">Straße und Hausnummer</label>
+                        <input type="text" id="street" required>
+                        
+                        <div class="address-group">
+                            <div>
+                                <label for="zip">PLZ</label>
+                                <input type="text" id="zip" required>
+                            </div>
+                            <div>
+                                <label for="city">Ort</label>
+                                <input type="text" id="city" required>
+                            </div>
+                        </div>
+
+                        <h2>2. Zahlung</h2>
+                        <label for="payment">Zahlungsmethode</label>
+                        <select id="payment" required>
+                            <option value="">Bitte auswählen...</option>
+                            <option value="paypal">PayPal (Digital First)</option>
+                            <option value="credit">Kreditkarte</option>
+                            <option value="sepa">SEPA Lastschrift</option>
+                        </select>
+                        
+                        <button type="submit" class="btn btn-primary btn-confirm">Kauf abschließen</button>
+                    </form>
+                </div>
+                
+                <div class="summary-box">
+                    <h3>Bestellübersicht</h3>
+                    <div id="checkoutItems">
+                        <p>Laden des Warenkorbs...</p>
+                    </div>
+                    
+                    <div class="summary-total">
+                        <span>Gesamt (inkl. MwSt.):</span>
+                        <span id="checkoutTotal">0.00 €</span>
+                    </div>
+                </div>
+            </div>
+            
+            <a href="warenkorb.html" style="display: block; margin-top: 30px;">← Zurück zum Warenkorb</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Partei Lindnis. Alle Rechte vorbehalten. | <a href="index.html">Zurück zur Hauptseite</a></p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

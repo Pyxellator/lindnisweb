@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spielereien | Lindnis Lab</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* NEUE HINTERGRUND-ANPASSUNG FÜR DIE SPIELEREIEN-SEITE */
+        body {
+            /* Hintergrund der Seite auf dunkel setzen */
+            background-color: var(--dark-bg, #333); 
+            color: white; /* Standardtextfarbe auf weiß setzen */
+        }
+        
+        .gimmick-content {
+            padding: 100px 0 50px;
+            min-height: 80vh;
+        }
+
+        .gimmick-content h1 {
+            color: var(--primary-yellow); /* Titel in gelb */
+            border-bottom: 3px solid #777; /* Hellere Trennlinie auf dunklem Grund */
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+
+        .gimmick-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .gimmick-list li {
+            background-color: #fff; /* Listen-Elemente bleiben hell */
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 5px solid var(--primary-yellow);
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .gimmick-list a {
+            font-weight: bold;
+            text-decoration: none;
+            color: var(--dark-bg);
+            transition: color 0.3s;
+        }
+
+        .gimmick-list a:hover {
+            color: var(--primary-yellow);
+        }
+
+        /* NEUE BADGE-STYLES (Vereinfacht) */
+        .status-badge {
+            font-size: 0.9rem;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: 600;
+            background-color: #e6007e; /* Einheitliches Lindnis Magenta */
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <img src="lindnis_normal.png" alt="Logo der Partei Lindnis">
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="index.html#home">Start</a></li>
+                <li><a href="index.html#programm">Programm</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="spielereien.html">Spielereien</a></li>
+                <li><a href="index.html#mitglied">Mitglied werden</a></li>
+            </ul>
+            
+            <a href="warenkorb.html" class="cart-button">
+                🛒 (<span id="cartCount">0</span>)
+            </a>
+            
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="gimmick-content">
+        <div class="container">
+            <h1>Lindnis Spielereien & Tools</h1>
+            
+            <ul class="gimmick-list">
+                <li>
+                    <a href="pyramiden_generator.html" target="_blank">Ablauf-Pyramiden-Generator</a>
+                    <span class="status-badge">ONLINE</span>
+                </li>
+                <li>
+                    <span>Mehr in Arbeit...</span>
+                    <span class="status-badge">IN ARBEIT</span>
+                </li>
+                <li>
+                    <span>Der Lindnis-Glückskeks-Orakel 3000</span>
+                    <span class="status-badge">IN ARBEIT</span>
+                </li>
+            </ul>
+
+            <p style="margin-top: 30px;">
+                Wir sind die Partei, die auch die digitalen Ecken des Internets liebt. Bald gibt es mehr abfackenden Unfug!
+            </p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="contact-links">
+                <a href="https://instagram.com/lindnis.b3" target="_blank">📸 @lindnis.b3</a>
+                <a href="mailto:lindnis.b3@gmail.com">📧 lindnis.b3@gmail.com</a>
+            </div>
+            <p>&copy; 2025 Partei Lindnis. Alle Rechte vorbehalten.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

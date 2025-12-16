@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partei Lindnis - Digital. Frei. Gelb.</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <img src="lindnis_normal.png" alt="Logo der Partei Lindnis">
+            </div>
+            
+            <ul class="nav-links">
+    <li><a href="index.html#home">Start</a></li>
+    <li><a href="index.html#programm">Programm</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="spielereien.html">Spielereien</a></li>
+    <li><a href="index.html#mitglied">Mitglied werden</a></li>
+</ul>
+            
+            <a href="warenkorb.html" class="cart-button">
+                🛒 (<span id="cartCount">0</span>)
+            </a>
+            
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <header id="home" class="hero">
+        <div class="hero-content">
+            <h1>Bedenken <span class="highlight">Second</span>.<br>Machen First.</h1>
+            <p>Die Zukunft wartet nicht auf Faxgeräte. Wir bringen High-Tech, Marktliebe und die schönste Farbe der Welt in die Politik.</p>
+            <div class="cta-group">
+                <a href="#mitglied" class="btn btn-primary">Jetzt unterstützen</a>
+                <a href="#programm" class="btn btn-secondary">Mehr erfahren</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="programm" class="section">
+        <div class="container">
+            <h2 class="section-title">Unsere Kernpunkte</h2>
+            
+            <div class="text-center" style="margin-bottom: 40px;">
+                <a href="parteiprogramm.html" target="_blank" class="btn btn-primary btn-lg">
+                    📋 Parteiprogramm 24/25 ansehen
+                </a>
+            </div>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3>🚀 Hyper-Digitalisierung</h3>
+                    <p>Wir fordern Tablets für alle – auch für Haustiere. Blockchain-Verwaltung statt Aktenordner.</p>
+                </div>
+                <div class="card">
+                    <h3>📉 Steuern wie Kalorien</h3>
+                    <p>Man sollte sie zählen und drastisch reduzieren. Mehr Netto vom Brutto für mehr Investitionen.</p>
+                </div>
+                <div class="card">
+                    <h3>🚗 Technologieoffenheit</h3>
+                    <p>Ob E-Fuel, Wasserstoff oder Fluxkompensator: Der Markt entscheidet, was fährt.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="mitglied" class="section bg-dark">
+        <div class="container text-center">
+            <h2 class="text-yellow">Werde Teil der Lindnis</h2>
+            <p class="text-white">Trage dich ein und erhalte 3 GRATIS Stciker.</p>
+            
+            <form id="joinForm" class="join-form">
+                <input type="email" placeholder="Deine E-Mail Adresse" required>
+                <button type="submit" class="btn btn-primary">Absenden</button>
+            </form>
+            <p id="formMessage" class="success-message"></p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            
+            <div class="contact-links">
+                <a href="https://instagram.com/lindnis.b3" target="_blank">📸 @lindnis.b3</a>
+                <a href="mailto:lindnis.b3@gmail.com">📧 lindnis.b3@gmail.com</a>
+            </div>
+            
+            <p>&copy; 2025 Partei Lindnis. Alle Rechte vorbehalten.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
