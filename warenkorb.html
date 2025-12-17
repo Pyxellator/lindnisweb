@@ -3,95 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Warenkorb | Lindnis Shop</title>
+    <title>Warenkorb | Lindnis</title>
     <link rel="stylesheet" href="style.css">
-
     <style>
-        .cart-page-content {
+        /* Warenkorb-spezifisches Layout */
+        .cart-container {
             padding: 100px 0 50px;
-            min-height: 80vh;
+            min-height: 70vh;
         }
 
-        .cart-page-content h1 {
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-            border-bottom: 2px solid var(--primary-yellow);
-            padding-bottom: 10px;
-        }
-
-        .cart-list {
-            border: 1px solid #ddd;
+        /* Liste der Artikel */
+        #cartList {
+            border: 1px solid #444;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
             margin-bottom: 30px;
+            background-color: #f9f9f9;
+            color: #333;
         }
 
         .cart-item-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
             padding: 15px;
-            border-bottom: 1px solid #eee;
-            background-color: #fff;
+            border-bottom: 1px solid #ddd;
+            align-items: center;
         }
-
-        .cart-item-row:last-child {
-            border-bottom: none;
-        }
-
-        .item-details {
-            flex-grow: 1;
-            padding-right: 20px;
+        
+        .cart-item-row.header-row {
+            background-color: #ddd;
         }
 
         .item-details h4 {
-            margin: 0;
-            font-size: 1.1rem;
+            margin: 0 0 5px 0;
+            color: var(--dark-bg);
         }
-
-        .item-quantity {
-            width: 80px;
-            text-align: center;
-        }
-
-        .item-price {
-            width: 100px;
-            text-align: right;
-            font-weight: bold;
-        }
-
-        .cart-summary {
+        
+        .cart-total {
             text-align: right;
             font-size: 1.5rem;
-            margin-bottom: 20px;
-        }
-
-        .checkout-area {
-            display: flex;
-            justify-content: flex-end;
-        }
-
-        /* Mobile Optimierung */
-        @media (max-width: 600px) {
-            .cart-item-row {
-                flex-wrap: wrap;
-            }
-            .item-details, .item-quantity, .item-price {
-                width: 100%;
-                text-align: left;
-                padding: 5px 0;
-            }
-            .item-price {
-                text-align: left;
-                font-size: 1.2rem;
-            }
-            .cart-summary {
-                text-align: left;
-            }
-            .checkout-area {
-                justify-content: flex-start;
-            }
+            font-weight: bold;
+            color: var(--primary-yellow);
+            padding: 10px 0;
         }
     </style>
 </head>
@@ -99,14 +52,17 @@
 
     <nav class="navbar">
         <div class="container nav-container">
-            <div class="logo">
-                <img src="lindnis_normal.png" alt="Logo der Partei Lindnis">
-            </div>
+            <a href="index.html" class="logo-link">
+                <div class="logo">
+                    <img src="lindnis_normal.png" alt="Logo der Partei Lindnis - Zur Startseite">
+                </div>
+            </a>
             
             <ul class="nav-links">
-                <li><a href="index.html#home">Start</a></li> 
+                <li><a href="index.html#home">Start</a></li>
                 <li><a href="index.html#programm">Programm</a></li>
                 <li><a href="shop.html">Shop</a></li>
+                <li><a href="spielereien.html">Spielereien</a></li>
                 <li><a href="index.html#mitglied">Mitglied werden</a></li>
             </ul>
             
@@ -122,27 +78,34 @@
         </div>
     </nav>
 
-    <section class="cart-page-content">
+    <section class="cart-container section bg-dark">
         <div class="container">
-            <h1>Ihr Warenkorb</h1>
+            <h2 class="section-title text-yellow">Ihr Warenkorb</h2>
 
-            <div class="cart-list" id="cartList">
+            <div id="cartList">
                 </div>
 
-            <div class="cart-summary">
-                <strong>Gesamtbetrag: <span id="cartTotal">0.00</span> €</strong>
+            <div class="cart-total">
+                Gesamt: <span id="cartTotal">0,00</span> €
             </div>
 
-            <div class="checkout-area">
-    <a href="kasse.html" class="btn btn-primary">Zur Kasse gehen</a>
-</div>>
-            
-            <a href="shop.html" style="display: block; margin-top: 30px;">← Zurück zum Shop</a>
+            <div class="text-center" style="margin-top: 30px;">
+                <a href="kasse.html" id="checkoutButton" class="btn btn-primary btn-lg" style="display: none;">
+                    🚀 Jetzt zur Kasse
+                </a>
+                <a href="shop.html" class="btn btn-secondary">
+                    ↩️ Weiter shoppen
+                </a>
+            </div>
         </div>
     </section>
 
     <footer>
         <div class="container">
+            <div class="contact-links">
+                <a href="https://instagram.com/lindnis.b3" target="_blank">📸 @lindnis.b3</a>
+                <a href="mailto:lindnis.b3@gmail.com">📧 lindnis.b3@gmail.com</a>
+            </div>
             <p>&copy; 2025 Partei Lindnis. Alle Rechte vorbehalten.</p>
         </div>
     </footer>
