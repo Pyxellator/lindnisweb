@@ -20,7 +20,6 @@ function updateCartCount() {
     const count = cart.reduce((sum, item) => sum + item.quantity, 0); 
     const cartCountSpan = document.getElementById('cartCount');
     
-    // Zähler nur aktualisieren, wenn das Element existiert (was es in der Nav. tut)
     if (cartCountSpan) {
         cartCountSpan.textContent = count;
     }
@@ -30,6 +29,7 @@ function updateCartCount() {
 // WARENKORB LOGIK (Zum Hinzufügen von Artikeln auf shop.html)
 // =========================================================
 
+// Fügt immer genau 1 Exemplar des Artikels hinzu oder erhöht die Menge um 1
 function addItemToCart(name, price) {
     let cart = loadCart();
     // Prüfen, ob der Artikel bereits existiert
@@ -44,8 +44,6 @@ function addItemToCart(name, price) {
     
     saveCart(cart);
     updateCartCount(); // Zähler sofort aktualisieren
-    
-    // *** KEIN POP-UP WIE GEWÜNSCHT ***
 }
 
 // =========================================================
@@ -55,8 +53,8 @@ function addItemToCart(name, price) {
 function renderCartPage() {
     const cartList = document.getElementById('cartList');
     const cartTotalSpan = document.getElementById('cartTotal');
+    const checkoutButton = document.getElementById('checkoutButton');
     
-    // Abbruch, wenn wir NICHT auf der Warenkorb-Seite sind
     if (!cartList || !cartTotalSpan) return; 
 
     const cart = loadCart();
@@ -65,9 +63,11 @@ function renderCartPage() {
 
     if (cart.length === 0) {
         itemsHtml = '<div style="text-align: center; padding: 40px;">Ihr Warenkorb ist leer. Die Digitalisierung wartet nicht auf leere Taschen! <a href="shop.html">Jetzt shoppen!</a></div>';
+        if(checkoutButton) checkoutButton.style.display = 'none';
     } else {
+        if(checkoutButton) checkoutButton.style.display = 'block';
         // Tabellenkopf
-        itemsHtml += '<div class="cart-item-row" style="background-color: #f0f0f0; font-weight: bold;"><span>Artikel</span><span class="item-quantity">Menge</span><span class="item-price">Preis</span></div>';
+        itemsHtml += '<div class="cart-item-row header-row" style="font-weight: bold; background-color: #ddd;"><span>Artikel</span><span class="item-quantity">Menge</span><span class="item-price">Gesamt</span></div>';
         
         // Einzelne Artikel auflisten
         cart.forEach(item => {
@@ -88,53 +88,48 @@ function renderCartPage() {
     }
 
     cartList.innerHTML = itemsHtml;
-    cartTotalSpan.textContent = total.toFixed(2).replace('.', ','); // Setzt den Gesamtpreis
+    cartTotalSpan.textContent = total.toFixed(2).replace('.', ','); 
 }
 
 // =========================================================
-// KASSE ANZEIGE (Nur auf kasse.html)
+// KASSE ANZEIGE & LOGIK (Zurückgesetzt auf simple Simulation)
 // =========================================================
 
 function renderCheckoutPage() {
+    const checkoutContainer = document.getElementById('checkoutContainer');
     const checkoutItemsDiv = document.getElementById('checkoutItems');
     const checkoutTotalSpan = document.getElementById('checkoutTotal');
     const checkoutForm = document.getElementById('checkoutForm');
     
-    // Abbruch, wenn wir NICHT auf der Kasse-Seite sind
-    if (!checkoutItemsDiv || !checkoutTotalSpan) return; 
+    if (!checkoutItemsDiv || !checkoutTotalSpan || !checkoutContainer) return; 
 
     const cart = loadCart();
     let total = 0;
     let itemsHtml = '';
-
+    
     if (cart.length === 0) {
-        itemsHtml = '<p style="color: red; font-weight: bold;">Der Warenkorb ist leer! Bitte gehen Sie zurück zum <a href="shop.html">Shop</a>.</p>';
-        if (checkoutForm) checkoutForm.style.display = 'none'; // Formular verstecken, wenn leer
-    } else {
-        // Artikel für die Zusammenfassung auflisten
-        cart.forEach(item => {
-            const itemTotal = item.price * item.quantity;
-            total += itemTotal;
-            itemsHtml += `<p>${item.quantity}x ${item.name} (${itemTotal.toFixed(2).replace('.', ',')} €)</p>`;
-        });
+        checkoutContainer.innerHTML = '<div style="padding: 20px; background-color: #fdd; color: #c00; border-radius: 4px; text-align: center;">Der Warenkorb ist leer! Bitte <a href="shop.html">Artikel hinzufügen</a>.</div>';
+        return;
     }
+
+    cart.forEach(item => {
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
+        itemsHtml += `<p>${item.quantity}x ${item.name} (${itemTotal.toFixed(2).replace('.', ',')} €)</p>`;
+    });
 
     checkoutItemsDiv.innerHTML = itemsHtml;
     checkoutTotalSpan.textContent = total.toFixed(2).replace('.', ',') + ' €';
 
-    // *** SIMULIERTER KAUFABSCHLUSS ***
     if (checkoutForm) {
         checkoutForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Logik: Warenkorb leeren und Zähler aktualisieren
             localStorage.removeItem('lindnisCart');
             updateCartCount();
 
-            // Bestätigungsnachricht
             alert('Vielen Dank für Ihren Kauf! Ihre Bestellung wurde digital freigegeben. (Dies ist eine simulierte Transaktion.)');
             
-            // Weiterleitung zur Startseite nach Kaufabschluss
             window.location.href = 'index.html'; 
         });
     }
@@ -144,10 +139,8 @@ function renderCheckoutPage() {
 // --- DOMContentLoaded Event Listener ---
 document.addEventListener('DOMContentLoaded', () => {
     
-    // 1. Zähler auf JEDER Seite aktualisieren
     updateCartCount();
 
-    // 2. Seiten-spezifische Render-Funktionen aufrufen
     if (document.title.includes('Warenkorb')) {
         renderCartPage();
     }
@@ -155,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderCheckoutPage();
     }
     
-    // 3. Mobile Navigation Toggle
+    // Mobile Navigation Toggle
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
 
@@ -165,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 4. Smooth Scroll (Funktionalität für Anker-Links #home, #programm etc.)
+    // Smooth Scroll (Funktionalität für Anker-Links #home, #programm etc.)
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -181,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
-    // 5. Produkt hinzufügen (Nur auf shop.html)
+    // Produkt hinzufügen (Nur auf shop.html)
     document.querySelectorAll('.btn-buy').forEach(button => {
         button.addEventListener('click', (e) => {
             e.preventDefault();
@@ -193,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 6. Formular "Fake" Absenden (Nur auf index.html)
+    // Formular "Fake" Absenden (Nur auf index.html)
     const form = document.getElementById('joinForm');
     if (form) {
         form.addEventListener('submit', (e) => {
