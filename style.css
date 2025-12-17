@@ -308,3 +308,19 @@ footer {
     padding: 15px 40px;
     font-size: 1.1rem;
 }
+/* NEUER STIL FÜR DAS LOGO ALS LINK */
+.logo-link {
+    text-decoration: none; 
+    display: inline-block;
+}
+
+/* KORREKTUR FÜR DIE NAVIGATIONSLINKS AUF HELLEN SEITEN (z.B. Shop, Warenkorb) */
+/* Dies überschreibt eine eventuelle weiße Textfarbe aus dem Body-Tag */
+.navbar .nav-links a {
+    color: var(--dark-bg, #333); /* Standardmäßig schwarz/dunkel */
+    transition: color 0.3s ease;
+}
+
+.navbar .nav-links a:hover {
+    color: var(--primary-yellow, #f9ee13); /* Beim Hovern Lindnis Gelb */
+}
