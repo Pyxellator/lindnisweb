@@ -3,86 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zur Kasse | Lindnis Shop</title>
+    <title>Zur Kasse | Lindnis</title>
     <link rel="stylesheet" href="style.css">
-
     <style>
-        .checkout-page-content {
+        /* Checkout Layout */
+        .checkout-container {
             padding: 100px 0 50px;
             min-height: 80vh;
         }
-
-        .checkout-page-content h1 {
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-            border-bottom: 2px solid var(--primary-yellow);
-            padding-bottom: 10px;
-        }
         
-        .checkout-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr; /* Formular links, Zusammenfassung rechts */
-            gap: 40px;
-        }
-
-        .summary-box {
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-            height: fit-content;
-        }
-
-        .summary-box h3 {
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 10px;
-            margin-bottom: 15px;
-        }
-
-        .summary-box .summary-total {
-            font-size: 1.4rem;
-            font-weight: bold;
+        .checkout-layout {
+            max-width: 700px;
+            margin: 0 auto;
             display: flex;
-            justify-content: space-between;
-            margin-top: 15px;
-            padding-top: 10px;
-            border-top: 2px solid var(--primary-yellow);
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .checkout-form {
+            background-color: #444;
+            padding: 30px;
+            border-radius: 8px;
+        }
+
+        .checkout-form h2 {
+            color: var(--primary-yellow);
+            border-bottom: 2px solid #555;
+            padding-bottom: 10px;
+            margin-top: 0;
+            margin-bottom: 20px;
         }
 
         .checkout-form label {
             display: block;
             margin-top: 15px;
-            font-weight: 600;
-        }
-
-        .checkout-form input[type="text"], 
-        .checkout-form input[type="email"],
-        .checkout-form select {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: white;
         }
         
-        /* Layout für Adressfelder */
-        .address-group {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .btn-confirm {
-            margin-top: 30px;
+        .checkout-form input[type="text"] {
             width: 100%;
-            padding: 15px;
+            padding: 10px;
+            border: 1px solid #777;
+            border-radius: 4px;
+            background-color: #555;
+            color: white;
+            box-sizing: border-box;
         }
 
-        @media (max-width: 900px) {
-            .checkout-grid {
-                grid-template-columns: 1fr;
-            }
+        .checkout-summary {
+            background-color: var(--dark-bg);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            color: white;
+        }
+        .checkout-summary h4 {
+            color: var(--primary-yellow);
+            border-bottom: 1px solid #777;
+            padding-bottom: 5px;
+            margin-top: 0;
+        }
+        .checkout-summary p {
+            margin: 5px 0;
+            font-size: 0.95rem;
+        }
+
+        .btn-checkout {
+            background-color: var(--primary-magenta);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            margin-top: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            display: block;
+            width: 100%;
+        }
+        .btn-checkout:hover {
+             background-color: #c4006b;
         }
     </style>
 </head>
@@ -90,14 +91,17 @@
 
     <nav class="navbar">
         <div class="container nav-container">
-            <div class="logo">
-                <img src="lindnis_normal.png" alt="Logo der Partei Lindnis">
-            </div>
+            <a href="index.html" class="logo-link">
+                <div class="logo">
+                    <img src="lindnis_normal.png" alt="Logo der Partei Lindnis - Zur Startseite">
+                </div>
+            </a>
             
             <ul class="nav-links">
-                <li><a href="index.html#home">Start</a></li> 
+                <li><a href="index.html#home">Start</a></li>
                 <li><a href="index.html#programm">Programm</a></li>
                 <li><a href="shop.html">Shop</a></li>
+                <li><a href="spielereien.html">Spielereien</a></li>
                 <li><a href="index.html#mitglied">Mitglied werden</a></li>
             </ul>
             
@@ -113,75 +117,48 @@
         </div>
     </nav>
 
-    <section class="checkout-page-content">
-        <div class="container">
-            <h1>Zur Kasse</h1>
+    <section class="checkout-container section bg-dark">
+        <div class="container checkout-layout" id="checkoutContainer">
             
-            <div class="checkout-grid">
-                <div>
-                    <h2>1. Lieferinformationen</h2>
-                    <form class="checkout-form" id="checkoutForm">
-                        <label for="email">E-Mail</label>
-                        <input type="email" id="email" required>
-                        
-                        <div class="address-group">
-                            <div>
-                                <label for="firstName">Vorname</label>
-                                <input type="text" id="firstName" required>
-                            </div>
-                            <div>
-                                <label for="lastName">Nachname</label>
-                                <input type="text" id="lastName" required>
-                            </div>
-                        </div>
-
-                        <label for="street">Straße und Hausnummer</label>
-                        <input type="text" id="street" required>
-                        
-                        <div class="address-group">
-                            <div>
-                                <label for="zip">PLZ</label>
-                                <input type="text" id="zip" required>
-                            </div>
-                            <div>
-                                <label for="city">Ort</label>
-                                <input type="text" id="city" required>
-                            </div>
-                        </div>
-
-                        <h2>2. Zahlung</h2>
-                        <label for="payment">Zahlungsmethode</label>
-                        <select id="payment" required>
-                            <option value="">Bitte auswählen...</option>
-                            <option value="paypal">PayPal (Digital First)</option>
-                            <option value="credit">Kreditkarte</option>
-                            <option value="sepa">SEPA Lastschrift</option>
-                        </select>
-                        
-                        <button type="submit" class="btn btn-primary btn-confirm">Kauf abschließen</button>
-                    </form>
-                </div>
-                
-                <div class="summary-box">
-                    <h3>Bestellübersicht</h3>
-                    <div id="checkoutItems">
-                        <p>Laden des Warenkorbs...</p>
-                    </div>
+            <div class="main-form">
+                 <form id="checkoutForm" class="checkout-form">
+                    <h2>Bestell- und Versandinformationen</h2>
                     
-                    <div class="summary-total">
-                        <span>Gesamt (inkl. MwSt.):</span>
-                        <span id="checkoutTotal">0.00 €</span>
-                    </div>
-                </div>
+                    <label for="name">Name und Vorname</label>
+                    <input type="text" id="name" required>
+                    
+                    <label for="street">Straße und Hausnummer</label>
+                    <input type="text" id="street" required>
+                    
+                    <label for="zip">PLZ</label>
+                    <input type="text" id="zip" required>
+                    
+                    <label for="city">Ort</label>
+                    <input type="text" id="city" required>
+                    
+                    <button type="submit" class="btn-checkout">Kauf abschließen (Simulation)</button>
+                </form>
             </div>
             
-            <a href="warenkorb.html" style="display: block; margin-top: 30px;">← Zurück zum Warenkorb</a>
+            <div class="checkout-summary">
+                <h4>Ihre Bestellung</h4>
+                <div id="checkoutItems">
+                    <p>Wird geladen...</p>
+                </div>
+                
+                <h3 style="margin-top: 20px;">Gesamtbetrag: <span id="checkoutTotal">0,00 €</span></h3>
+            </div>
+            
         </div>
     </section>
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 Partei Lindnis. Alle Rechte vorbehalten. | <a href="index.html">Zurück zur Hauptseite</a></p>
+            <div class="contact-links">
+                <a href="https://instagram.com/lindnis.b3" target="_blank">📸 @lindnis.b3</a>
+                <a href="mailto:lindnis.b3@gmail.com">📧 lindnis.b3@gmail.com</a>
+            </div>
+            <p>&copy; 2025 Partei Lindnis. Alle Rechte vorbehalten.</p>
         </div>
     </footer>
 
