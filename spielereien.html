@@ -13,6 +13,16 @@
             color: white; /* Standardtextfarbe auf weiß setzen */
         }
         
+        /* WICHTIGE KORREKTUR: Nav-Links auf hellen Nav-Bar schwarz machen */
+        .navbar .nav-links a {
+            color: var(--dark-bg, #333) !important; 
+        }
+
+        .navbar .nav-links a:hover {
+            color: var(--primary-yellow, #f9ee13) !important;
+        }
+
+        /* Restliche Spielereien-Styles */
         .gimmick-content {
             padding: 100px 0 50px;
             min-height: 80vh;
@@ -40,12 +50,15 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            /* Text in den Boxen schwarz machen */
+            color: var(--dark-bg, #333); 
         }
 
         .gimmick-list a {
             font-weight: bold;
             text-decoration: none;
-            color: var(--dark-bg);
+            /* Linktext explizit schwarz machen */
+            color: var(--dark-bg, #333); 
             transition: color 0.3s;
         }
 
@@ -68,9 +81,11 @@
 
     <nav class="navbar">
         <div class="container nav-container">
-            <div class="logo">
-                <img src="lindnis_normal.png" alt="Logo der Partei Lindnis">
-            </div>
+            <a href="index.html" class="logo-link">
+                <div class="logo">
+                    <img src="lindnis_normal.png" alt="Logo der Partei Lindnis - Zur Startseite">
+                </div>
+            </a>
             
             <ul class="nav-links">
                 <li><a href="index.html#home">Start</a></li>
