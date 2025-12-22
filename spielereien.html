@@ -6,14 +6,13 @@
     <title>Spielereien | Lindnis Lab</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* NEUE HINTERGRUND-ANPASSUNG FÜR DIE SPIELEREIEN-SEITE */
+        /* HINTERGRUND-ANPASSUNG FÜR DIE SPIELEREIEN-SEITE */
         body {
-            /* Hintergrund der Seite auf dunkel setzen */
             background-color: var(--dark-bg, #333); 
-            color: white; /* Standardtextfarbe auf weiß setzen */
+            color: white; 
         }
         
-        /* WICHTIGE KORREKTUR: Nav-Links auf hellen Nav-Bar schwarz machen */
+        /* KORREKTUR: Nav-Links auf hellen Nav-Bar schwarz machen */
         .navbar .nav-links a {
             color: var(--dark-bg, #333) !important; 
         }
@@ -22,15 +21,14 @@
             color: var(--primary-yellow, #f9ee13) !important;
         }
 
-        /* Restliche Spielereien-Styles */
         .gimmick-content {
             padding: 100px 0 50px;
             min-height: 80vh;
         }
 
         .gimmick-content h1 {
-            color: var(--primary-yellow); /* Titel in gelb */
-            border-bottom: 3px solid #777; /* Hellere Trennlinie auf dunklem Grund */
+            color: var(--primary-yellow); 
+            border-bottom: 3px solid #777; 
             padding-bottom: 10px;
             margin-bottom: 30px;
         }
@@ -41,7 +39,7 @@
         }
 
         .gimmick-list li {
-            background-color: #fff; /* Listen-Elemente bleiben hell */
+            background-color: #fff; 
             padding: 20px;
             margin-bottom: 15px;
             border-left: 5px solid var(--primary-yellow);
@@ -50,14 +48,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            /* Text in den Boxen schwarz machen */
             color: var(--dark-bg, #333); 
         }
 
         .gimmick-list a {
             font-weight: bold;
             text-decoration: none;
-            /* Linktext explizit schwarz machen */
             color: var(--dark-bg, #333); 
             transition: color 0.3s;
         }
@@ -66,13 +62,12 @@
             color: var(--primary-yellow);
         }
 
-        /* NEUE BADGE-STYLES (Vereinfacht) */
         .status-badge {
             font-size: 0.9rem;
             padding: 5px 10px;
             border-radius: 4px;
             font-weight: 600;
-            background-color: #e6007e; /* Einheitliches Lindnis Magenta */
+            background-color: #e6007e; 
             color: white;
         }
     </style>
@@ -117,8 +112,8 @@
                     <span class="status-badge">ONLINE</span>
                 </li>
                 <li>
-                    <span>Mehr in Arbeit...</span>
-                    <span class="status-badge">IN ARBEIT</span>
+                    <a href="maskengame.html">Lindnis Masken-Deal (Clicker)</a>
+                    <span class="status-badge" style="background-color: #00c853;">NEU</span>
                 </li>
                 <li>
                     <span>Der Lindnis-Glückskeks-Orakel 3000</span>
@@ -127,7 +122,7 @@
             </ul>
 
             <p style="margin-top: 30px;">
-                Wir sind die Partei, die auch die digitalen Ecken des Internets liebt. Bald gibt es mehr abfackenden Unfug!
+                Wir sind die Partei, die auch die digitalen Ecken des Internets liebt. Bald gibt es mehr abgefahrenen Unfug!
             </p>
         </div>
     </section>
