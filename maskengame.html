@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lindnis Masken-Deal | Spielereien</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-color: var(--dark-bg, #333);
+            color: white;
+            overflow: hidden; 
+            font-family: sans-serif;
+            margin: 0;
+        }
+
+        #game-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            cursor: crosshair;
+        }
+
+        .game-hud {
+            position: absolute;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.9);
+            padding: 15px 30px;
+            border-radius: 50px;
+            border: 2px solid var(--primary-yellow);
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .hud-item { font-size: 1.1rem; font-weight: bold; white-space: nowrap; }
+        .hud-item span { color: var(--primary-yellow); }
+
+        .btn-game {
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.1s;
+        }
+        #sell-btn { background-color: var(--primary-magenta, #e6007e); color: white; }
+        #upgrade-menu-btn { background-color: var(--primary-yellow); color: var(--dark-bg); }
+
+        #upgrade-modal {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #222;
+            padding: 25px;
+            border-radius: 15px;
+            border: 3px solid var(--primary-yellow);
+            z-index: 200;
+            width: 320px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0,0,0,0.8);
+        }
+
+        .upgrade-row {
+            margin: 15px 0;
+            padding: 12px;
+            background: #333;
+            border-radius: 10px;
+        }
+
+        .upgrade-bars {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-bottom: 8px;
+        }
+        .bar {
+            width: 40px;
+            height: 6px;
+            background: #555;
+            border-radius: 2px;
+            transition: background 0.3s;
+        }
+        .bar.active {
+            background: var(--primary-yellow);
+            box-shadow: 0 0 5px var(--primary-yellow);
+        }
+
+        .btn-buy-upgrade {
+            background: #00c853;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            cursor: pointer;
+            border-radius: 4px;
+            width: 100%;
+            font-weight: bold;
+        }
+        .btn-buy-upgrade:disabled { background: #555 !important; cursor: not-allowed; color: #999; }
+
+        .mask-target {
+            position: absolute;
+            width: 80px; 
+            height: auto;
+            cursor: pointer;
+            animation: fadeIn 0.3s ease;
+            z-index: 10;
+        }
+
+        .trail {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--primary-yellow, #f9ee13);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 5;
+            animation: trailAnim 0.6s linear forwards;
+        }
+
+        @keyframes trailAnim {
+            to { transform: scale(0); opacity: 0; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.5); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .navbar { z-index: 1000; }
+        .navbar .nav-links a { color: var(--dark-bg) !important; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo-link">
+                <div class="logo"><img src="lindnis_normal.png" alt="Logo"></div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Start</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="spielereien.html">Spielereien</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div id="game-container">
+        <div class="game-hud">
+            <div class="hud-item">Lager: <span id="storage-count">0</span></div>
+            <div class="hud-item">Kapital: <span id="money-count">0</span> LC</div>
+            <button id="sell-btn" class="btn-game">Deal machen</button>
+            <button id="upgrade-menu-btn" class="btn-game">Upgrades ⚙️</button>
+        </div>
+
+        <div id="upgrade-modal">
+            <h2 style="color:var(--primary-yellow); margin-top:0;">Lindnis Upgrades</h2>
+            
+            <div class="upgrade-row">
+                <div class="upgrade-bars" id="bars-rate">
+                    <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                </div>
+                <p style="margin:5px 0;">Kurs: <span id="current-rate">5</span> LC</p>
+                <button id="btn-rate" class="btn-buy-upgrade" onclick="buyRate()">Upgrade (75 LC)</button>
+            </div>
+
+            <div class="upgrade-row">
+                <div class="upgrade-bars" id="bars-time">
+                    <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                </div>
+                <p style="margin:5px 0;">Zeit: <span id="current-time">4</span>s</p>
+                <button id="btn-time" class="btn-buy-upgrade" onclick="buyTime()">Upgrade (50 LC)</button>
+            </div>
+
+            <div class="upgrade-row">
+                <div class="upgrade-bars" id="bars-trail">
+                    <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                </div>
+                <p style="margin:5px 0;">Schweif ✨</p>
+                <button id="btn-trail" class="btn-buy-upgrade" onclick="buyTrail()">Kaufen (500 LC)</button>
+            </div>
+
+            <button class="btn-game" onclick="toggleUpgradeMenu()" style="margin-top:10px; background:#555; color:white; width:100%;">Schließen</button>
+        </div>
+    </div>
+
+    <script>
+        let storage = 0;
+        let money = 0;
+        let lcPerMask = 5;
+        let maskLifeTime = 4000;
+        let rateLevel = 0;
+        let timeLevel = 0;
+        let trailLevel = 0;
+        const maxLevel = 3;
+
+        const storageDisplay = document.getElementById('storage-count');
+        const moneyDisplay = document.getElementById('money-count');
+        const modal = document.getElementById('upgrade-modal');
+        const gameContainer = document.getElementById('game-container');
+
+        gameContainer.addEventListener('mousemove', (e) => {
+            if (trailLevel > 0) {
+                for(let i=0; i < trailLevel; i++) {
+                    const dot = document.createElement('div');
+                    dot.className = 'trail';
+                    dot.style.left = (e.pageX - 5) + 'px';
+                    dot.style.top = (e.pageY - 5) + 'px';
+                    if(i > 0) {
+                        dot.style.left = (e.pageX - 5 + (Math.random()*15 - 7)) + 'px';
+                        dot.style.top = (e.pageY - 5 + (Math.random()*15 - 7)) + 'px';
+                    }
+                    gameContainer.appendChild(dot);
+                    setTimeout(() => dot.remove(), 600);
+                }
+            }
+        });
+
+        function spawnMask() {
+            if (document.querySelectorAll('.mask-target').length >= 5) return;
+            const mask = document.createElement('img');
+            mask.src = 'maske.png';
+            mask.className = 'mask-target';
+            const x = Math.random() * (window.innerWidth - 100);
+            const y = Math.random() * (window.innerHeight - 250) + 150;
+            mask.style.left = x + 'px';
+            mask.style.top = y + 'px';
+            mask.onclick = () => { mask.remove(); storage++; storageDisplay.innerText = storage; };
+            gameContainer.appendChild(mask);
+            setTimeout(() => { if(mask.parentElement) mask.remove(); }, maskLifeTime);
+        }
+
+        document.getElementById('sell-btn').onclick = () => {
+            if (storage > 0) {
+                money += storage * lcPerMask;
+                storage = 0;
+                storageDisplay.innerText = storage;
+                moneyDisplay.innerText = money;
+            }
+        };
+
+        function toggleUpgradeMenu() {
+            modal.style.display = (modal.style.display === 'block') ? 'none' : 'block';
+        }
+        document.getElementById('upgrade-menu-btn').onclick = toggleUpgradeMenu;
+
+        function updateBars(containerId, level) {
+            const bars = document.getElementById(containerId).querySelectorAll('.bar');
+            for(let i = 0; i < level; i++) bars[i].classList.add('active');
+        }
+
+        function flashButtonRed(btnId) {
+            const btn = document.getElementById(btnId);
+            const originalColor = btn.style.backgroundColor;
+            btn.style.backgroundColor = "#c00";
+            setTimeout(() => { btn.style.backgroundColor = originalColor; }, 300);
+        }
+
+        function buyRate() {
+            const cost = 75;
+            if (rateLevel < maxLevel && money >= cost) {
+                money -= cost; rateLevel++; lcPerMask += 2;
+                moneyDisplay.innerText = money;
+                document.getElementById('current-rate').innerText = lcPerMask;
+                updateBars('bars-rate', rateLevel);
+                if(rateLevel === maxLevel) { 
+                    document.getElementById('btn-rate').innerText = "MAXIMAL"; 
+                    document.getElementById('btn-rate').disabled = true; 
+                }
+            } else if (money < cost) { flashButtonRed('btn-rate'); }
+        }
+
+        function buyTime() {
+            const cost = 50;
+            if (timeLevel < maxLevel && money >= cost) {
+                money -= cost; timeLevel++; maskLifeTime += 1500;
+                moneyDisplay.innerText = money;
+                document.getElementById('current-time').innerText = maskLifeTime / 1000;
+                updateBars('bars-time', timeLevel);
+                if(timeLevel === maxLevel) { 
+                    document.getElementById('btn-time').innerText = "MAXIMAL"; 
+                    document.getElementById('btn-time').disabled = true; 
+                }
+            } else if (money < cost) { flashButtonRed('btn-time'); }
+        }
+
+        function buyTrail() {
+            const cost = 500;
+            if (trailLevel < maxLevel && money >= cost) {
+                money -= cost; trailLevel++;
+                moneyDisplay.innerText = money;
+                updateBars('bars-trail', trailLevel);
+                if(trailLevel === maxLevel) {
+                    document.getElementById('btn-trail').innerText = "MAXIMAL";
+                    document.getElementById('btn-trail').disabled = true;
+                }
+            } else if(money < cost) { flashButtonRed('btn-trail'); }
+        }
+
+        setInterval(spawnMask, 1200);
+        spawnMask();
+    </script>
+</body>
+</html>
